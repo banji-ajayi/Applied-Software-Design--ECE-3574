@@ -1,0 +1,12 @@
+Process is a program that is executing on the computer
+
+
+Heap is pretty much the RAM that is being used. When a program asks for 8K of memory, it goes in heap.
+
+Stack is actually just a temporary holder of data
+
+Program is passive, process is active. A program doesn't execute, only processes do.
+
+A process is a container, thread is what is fully executing. A process becomes a thread when it executes. Current a process executing is just 1 thread. But later on, magic  happens.
+
+A machine is considered well balanced if the queue of PCBs is done well.

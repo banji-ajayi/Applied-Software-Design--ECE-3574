@@ -1,0 +1,15 @@
+Shared memory is such that two processes can acccess each others memory and make changes to it.  A simple exaple could be to know when Process A is finished, it could write a 1 to memory and process B could read
+that sector to see what value it is and then perform an action.
+
+Note that processes can not access spaces of memory it isn't authorized to unless the OS alllows it.
+
+How to communicate with other processes? Welll process should go to OS and tell it to give it a piece of memory that can be shared with other authorized processes. The OS will not raise  any red flags for such attempts at a later point in time. 
+
+Now we have message passing. Want to put a message somewhere.And if you want to communicate , then you have to wait in the message queue and pull messages from there. The OS typically handles this and is in the example of a Mailbox. 
+
+Shared memory is much faster than message processing.
+
+
+Simple Producer Consumer Problem. 
+----------------------------------
+

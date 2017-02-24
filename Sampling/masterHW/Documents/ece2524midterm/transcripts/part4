@@ -1,0 +1,21 @@
+Script started on Wed 10 Oct 2012 04:29:00 PM EDT
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midterm/outputthomas@thomas-VirtualBox:~/Documents/ece2524midterm/output$ cd ..
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ cd sample
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midterm/samplethomas@thomas-VirtualBox:~/Documents/ece2524midterm/sample$ ls -A --file-type |  grep -v "/$" | grep "^\." | xargs grep 'secrets'
+.setec_astronomy:too many secrets!
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midterm/samplethomas@thomas-VirtualBox:~/Documents/ece2524midterm/sample$ cd ..
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ wc -m files/testdata
+35 files/testdata
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ sed 's/le/0/' files/testdat a
+cyc0
+bicyc0
+unc0
+Tour de France
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ grep -n 'Samuel Enderby is  the name' files/moby.txt
+[32m[K4242[m[K[36m[K:[m[K"[01;31m[KSamuel Enderby is the name[m[K of my ship," interrupted the one-armed captain, addressing Ahab; "go on, boy."
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ grep -n 'My wrist is sprain ed' files/moby.txt | wc -w
+42
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ grep -n 'My wrist is spraineed' files/moby.txt | wc -w > output/the.answer
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ exit
+
+Script done on Wed 10 Oct 2012 04:50:58 PM EDT

@@ -1,0 +1,176 @@
+Note that in these examples that the path to diskusage is added to the PATH environment variable.
+This means that "diskusage" may be used instead of "./diskusage" or the appropriate path to your executable.
+"export PATH=$PATH:<fullpath to directory with exe>" will allow you to use diskusage without specifying the relative path for the lifetime of that shell.
+
+The file tree as reported by Unix's du command notes added after #
+	$ du -ab B/ 1k A/
+	3584     B/A/3.5k
+	2048     B/A/2k
+	9728     B/A
+	4        B/backlink   # symbolic link to ./B (actual size is 4B but diskusage should report 4096B for ./B's direct size)
+	3584     B/B/3.5k
+	2048     B/B/2k
+	9728     B/B
+	1024     B/1k
+	2048     B/2k
+	26628    B/
+	1024     1k
+	4096     A/E          # empty directory
+	1024     A/1k
+	0        A/empty      # empty file
+	2048     A/2k
+	11264    A/
+
+No depth filter; type filter to only files, directories and symlinks; and show in bytes
+	$ diskusage -depth=all -b -fds B/ 1k A/
+	1024 B        1k
+	11264 B       A/
+	1024 B        A/1k
+	2048 B        A/2k
+	4096 B        A/E
+	0 B           A/empty
+	30720 B       B/
+	1024 B        B/1k
+	2048 B        B/2k
+	9728 B        B/A
+	2048 B        B/A/2k
+	3584 B        B/A/3.5k
+	9728 B        B/B
+	2048 B        B/B/2k
+	3584 B        B/B/3.5k
+	4096 B        B/backlink
+
+Show only immediate resource arguments; type filter to only files, directories and symlinks; and show in bytes
+	$ diskusage -depth=0 -b -fds B/ 1k A/
+	1024 B        1k
+	11264 B       A/
+	30720 B       B/
+
+Show only immediate resource arguments and their sub-resources; type filter to only files, directories and symlinks; and show in bytes
+	$ diskusage -depth=1 -b -fds B/ 1k A/
+	1024 B        1k
+	11264 B       A/
+	1024 B        A/1k
+	2048 B        A/2k
+	4096 B        A/E
+	0 B           A/empty
+	30720 B       B/
+	1024 B        B/1k
+	2048 B        B/2k
+	9728 B        B/A
+	9728 B        B/B
+	4096 B        B/backlink
+
+Show only immediate resource arguments and their sub-resources and their sub-resources; type filter to only files, directories and symlinks; and show in bytes
+	$ diskusage -depth=2 -b -fds B/ 1k A/
+	1024 B        1k
+	11264 B       A/
+	1024 B        A/1k
+	2048 B        A/2k
+	4096 B        A/E
+	0 B           A/empty
+	30720 B       B/
+	1024 B        B/1k
+	2048 B        B/2k
+	9728 B        B/A
+	2048 B        B/A/2k
+	3584 B        B/A/3.5k
+	9728 B        B/B
+	2048 B        B/B/2k
+	3584 B        B/B/3.5k
+	4096 B        B/backlink
+
+No depth filter; type filter to only files, directories and symlinks; and show in kilobytes
+	$ diskusage -depth=all -k -fds B/ 1k A/
+	1 kB          1k
+	11 kB         A/
+	1 kB          A/1k
+	2 kB          A/2k
+	4 kB          A/E
+	0 kB          A/empty
+	30 kB         B/
+	1 kB          B/1k
+	2 kB          B/2k
+	10 kB         B/A
+	2 kB          B/A/2k
+	4 kB          B/A/3.5k
+	10 kB         B/B
+	2 kB          B/B/2k
+	4 kB          B/B/3.5k
+	4 kB          B/backlink
+
+No depth filter; type filter to only files, directories and symlinks; and show in megabytes
+	$ diskusage -depth=all -m -fds B/ 1k A/
+	1 MB          1k
+	1 MB          A/
+	1 MB          A/1k
+	1 MB          A/2k
+	1 MB          A/E
+	0 MB          A/empty
+	1 MB          B/
+	1 MB          B/1k
+	1 MB          B/2k
+	1 MB          B/A
+	1 MB          B/A/2k
+	1 MB          B/A/3.5k
+	1 MB          B/B
+	1 MB          B/B/2k
+	1 MB          B/B/3.5k
+	1 MB          B/backlink
+
+No depth filter; type filter to only files; and show in bytes
+	$ diskusage -depth=all -b -f B/ 1k A/
+	1024 B        1k
+	1024 B        A/1k
+	2048 B        A/2k
+	0 B           A/empty
+	1024 B        B/1k
+	2048 B        B/2k
+	2048 B        B/A/2k
+	3584 B        B/A/3.5k
+	2048 B        B/B/2k
+	3584 B        B/B/3.5k
+
+No depth filter; type filter to only directories; and show in bytes
+	$ diskusage -depth=all -b -d B/ 1k A/
+	11264 B       A/
+	4096 B        A/E
+	30720 B       B/
+	9728 B        B/A
+	9728 B        B/B
+
+No depth filter; type filter to only symlinks; and show in bytes
+	$ diskusage -depth=all -b -s B/ 1k A/
+	4096 B        B/backlink
+
+No depth filter; type filter to only files and symlinks; and show in bytes
+	$ diskusage -depth=all -b -fs B/ 1k A/
+	1024 B        1k
+	1024 B        A/1k
+	2048 B        A/2k
+	0 B           A/empty
+	1024 B        B/1k
+	2048 B        B/2k
+	2048 B        B/A/2k
+	3584 B        B/A/3.5k
+	2048 B        B/B/2k
+	3584 B        B/B/3.5k
+	4096 B        B/backlink
+
+No depth filter; type filter to only files and directories; and show in bytes
+	$ diskusage -depth=all -b -fd B/ 1k A/
+	1024 B        1k
+	11264 B       A/
+	1024 B        A/1k
+	2048 B        A/2k
+	4096 B        A/E
+	0 B           A/empty
+	30720 B       B/
+	1024 B        B/1k
+	2048 B        B/2k
+	9728 B        B/A
+	2048 B        B/A/2k
+	3584 B        B/A/3.5k
+	9728 B        B/B
+	2048 B        B/B/2k
+	3584 B        B/B/3.5k

@@ -1,0 +1,2 @@
+g++ -c complexEz.cpp
+g++ -o ct complexEz.o complex-testEz.cpp

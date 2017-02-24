@@ -1,0 +1,2 @@
+configuration information for programs is often stored in an 'rc' file in the users home directory.
+e.g., ~/.bashrc

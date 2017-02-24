@@ -1,0 +1,597 @@
+//Thomas Elliott
+//March 14,2011
+//Battleship!
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+#include <cctype>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+
+using namespace std;
+
+int main()              //main function
+{
+    bool playagain();   // only thing in main function is play again function
+    if (!playagain())   // if play again returns false program exits
+    exit(1);
+    else playagain();   // if play again returns true the game will start again
+
+    cin.ignore(1000);
+    return 0;
+}
+bool playagain()     // beginning of actual game which is executed in the play again function
+{
+    bool play = true;
+    string play1= "y";
+    while (play)
+    {string retry(); // retry function makes sure every coordinate is entered correctly
+    int n, r, shipCount, cshipCount, cguess1, cguess2,x,y,poc;
+    shipCount=5; cshipCount=5;
+    const int gridSize = 8;
+    string grid[gridSize][gridSize];       //this is the grid where your ships will be
+    string grid2[gridSize][gridSize]; // this declares the array for where you are going to place your hits
+    string grid3[gridSize][gridSize]; // this is the grid where the computer will put ships
+    string grid4[gridSize][gridSize]; // this is the grid where player1 ships are when playing with friend
+    string grid5[gridSize][gridSize]; // this is the grid where player2 ships are when playing with friend
+    string ship1,ship2,ship3,ship4,ship5; // 5 ships
+    string cship1,cship2,cship3,cship4,cship5; // 5 computer ships
+    string guess, guess2;
+    string player1, player2;
+    bool winner, loser;                        // whether or not you win or lose
+    winner=false;
+    loser=false;
+    cship1 = "S1"; cship2 = "S2"; cship3 = "S3"; cship4 = "S4"; cship5 = "S5";
+
+    cout << "Battleship! Destroy the 5 enemy ships before yours are destroyed." << endl;
+    cout << "Make sure you enter the correct amount of coordinates for each ship, and that" << endl;
+    cout << "each coordinate starts with a capital letter then a number. Ex: A1" << endl;
+    cout << "Press 1 to play with the computer, Press 2 to play with a friend" << endl;
+
+    cin >> poc; //entry that determines whether or not you play again
+    while (poc >2 | poc <1) // make sure either a one or a two is entered
+    {cout << "Invalid choice. Pick either a one or a two." << endl;
+    cin >> poc;}
+
+    if(poc==1) // in this if loop the entire game to play with the computer is executed
+    {
+    cout << "You have selected to play against the computer" << endl;
+    cout << "Enter a coordinate for Ship 1." << endl;        // Pick coordinates where your 5 ships will go
+    ship1 = retry();
+       cout << "Ship 1 coordinate is set! The coordinate you entered is "<< ship1 << endl;
+       cout << "Now enter a cordinate for Ship 2." << endl;
+
+    ship2=retry();
+    while (ship1 == ship2)
+    {if (ship1 == ship2)
+       {cout << "Ship 2 is on the same coordinate as ship 1. Reenter a coordinate for Ship 2" << endl;
+       ship2=retry();}}
+    cout << "Ship 2 coordinate is set! The coordinate you entered is "<< ship2 << endl;
+    cout << "Now enter a cordinate for Ship 3." << endl;
+
+    ship3=retry();
+    while (ship1 == ship3 | ship2 == ship3)
+    {if (ship1 == ship3)
+        {cout << "Ship 3 is on the same coordinate as ship 1. Renter a coordinate for Ship 3" << endl;
+        ship3=retry();}
+     if (ship2 == ship3)
+        {cout << "Ship 3 is on the same coordinate as ship 2. Renter a coordinate for Ship 3" << endl;
+        ship3=retry();}}
+    cout << "Ship 3 coordinate is set! The coordinate you entered is "<< ship3 << endl;
+    cout << "Now enter a cordinate for Ship 4." << endl;
+
+    ship4=retry();
+    while (ship1 == ship4 | ship2 == ship4 | ship3 == ship4)
+    {if (ship1 == ship4)
+        {cout << "Ship 4 is on the same coordinate as ship 1. Renter a coordinate for Ship 4" << endl;
+        ship4=retry();}
+     if (ship2 == ship4)
+        {cout << "Ship 4 is on the same coordinate as ship 2. Renter a coordinate for Ship 4" << endl;
+        ship4=retry();}
+     if (ship3 == ship4)
+        {cout << "Ship 4 is on the same coordinate as ship 3. Renter a coordinate for Ship 4" << endl;
+        ship4=retry();}}
+    cout << "Ship 4 coordinate is set! The coordinate you entered is "<< ship4 << endl;
+    cout << "Now enter a cordinate for Ship 5." << endl;
+
+    ship5=retry();
+    while (ship1 == ship5 | ship2 == ship5 | ship3 == ship5 | ship4 == ship5)
+    {if (ship1 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 1. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}
+     if (ship2 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 2. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}
+     if (ship3 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 3. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}
+     if (ship4 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 4. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}}
+     cout << "Ship 5 coordinate is set! The coordinate you entered is "<< ship5 << endl;
+
+    // Setting up the grid
+
+    for (n=0; n<gridSize; n++)             // fill initial grid with dashes
+    {   for (r=0; r<gridSize; r++)
+        {
+            grid[n][r] = "-";
+        }
+    }
+    grid[(int(ship1.at(1)))-49][(int(ship1.at(0)))-65] = "S"; // put S's where your ships are
+    grid[(int(ship2.at(1)))-49][(int(ship2.at(0)))-65] = "S";
+    grid[(int(ship3.at(1)))-49][(int(ship3.at(0)))-65] = "S";
+    grid[(int(ship4.at(1)))-49][(int(ship4.at(0)))-65] = "S";
+    grid[(int(ship5.at(1)))-49][(int(ship5.at(0)))-65] = "S";
+
+//Computer Randomized picking of ships
+// checks to make sure computer doesn't put two ships on the same coordinate
+srand ( time(NULL) );
+x=rand() % 8;
+y=rand() % 8;
+grid3[x][y] = cship1;
+do
+{x=rand() % 8;
+y=rand() % 8;}
+while(grid3[x][y]==cship1);
+grid3[x][y]=cship2;
+do
+{x=rand() % 8;
+y=rand() % 8;}
+while(grid3[x][y]==cship1 | grid3[x][y]==cship2);
+grid3[x][y]=cship3;
+do
+{x=rand() % 8;
+y=rand() % 8;}
+while(grid3[x][y]==cship1 | grid3[x][y]==cship2 | grid3[x][y]==cship3);
+grid3[x][y]=cship4;
+do
+{x=rand() % 8;
+y=rand() % 8;}
+while(grid3[x][y]==cship1 | grid3[x][y]==cship2 | grid3[x][y]==cship3 | grid3[x][y]==cship4);
+grid3[x][y]=cship5;
+
+for (n=0; n<gridSize; n++)             // fill grid2 with dashes
+    {   for (r=0; r<gridSize; r++)
+        {
+            grid2[n][r] = "-";
+        }
+    }
+
+cout << "\nThe S's on the grid are your ships" << endl;
+cout << "The O's mark where the computer is guessing on the top grid" << endl;
+cout << "The O's on the lower grid are your guesses" << endl;
+cout << "The X's are the computer's hits on the top grid and your hits on the lower grid" << endl;
+cout << "If you find all 5 computer ships you win." << endl;
+cout << "If the computer finds your 5 ships, you lose." << endl;
+system ("pause");
+system ("cls");
+cout << "Alrgiht! All your ships are set in the grid below" << endl;
+cout << "Lets begin. You start. Guess a coordinate where you think an enemy ship is." << endl;
+
+while (!winner && !loser) //loop for the actual game which exits when someone wins or loses
+{
+    cout << "   "; // display grid 1
+    for (r=65; r<73; r++)
+    cout << setw(6) << char(r);
+
+    cout << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+    for (n=0; n<gridSize; n++)
+    {
+        cout << setw(2) << n+1 << "|";
+        for (r=0; r<gridSize; r++)
+            {cout << "   " <<setw(3) << grid[n][r];}
+        cout << endl;
+    }
+   cout << "\n   ";                              // display grid 2
+    for (r=65; r<73; r++)
+    cout << setw(6) << char(r);
+
+    cout << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+    for (n=0; n<gridSize; n++)
+    {
+        cout << setw(2) << n+1 << "|";
+        for (r=0; r<gridSize; r++)
+            {cout << "   " <<setw(3) << grid2[n][r];}
+        cout << endl;
+    }
+    //cout << "\n   ";                              // display grid 3 (for cheating purposes)
+    //for (r=65; r<73; r++)
+    //cout << setw(6) << char(r);
+
+    //cout << endl;
+    //cout << "-------------------------------------------------------------------" << endl;
+    //for (n=0; n<gridSize; n++)
+    //{
+        //cout << setw(2) << n+1 << "|";
+        //for (r=0; r<gridSize; r++)
+            //{cout << "   " <<setw(3) << grid3[n][r];}
+        //cout << endl;
+    //}
+if (cshipCount == 0) // checks computer ship count to see if you have won
+   {cout << "You Win!" << endl;
+   winner = true;
+   continue;}
+else if (shipCount ==0) // checks your ship count to see if you have lost
+   {cout << "Sorry you lost." << endl;
+   loser = true;
+   continue;}
+
+guess=retry(); // your guess, and what happens if you guess the same coordinate more than once
+system("cls");
+if (grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] =="O" |grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] == "X")
+   {cout << "You have already guessed that coordinate. Guess again" << endl;
+   continue;}
+
+//corresponding response of your guesses on grid
+if (grid3[(int(guess.at(1)))-49][(int(guess.at(0)))-65]==cship1 | grid3[(int(guess.at(1)))-49][(int(guess.at(0)))-65]==cship2|grid3[(int(guess.at(1)))-49][(int(guess.at(0)))-65]==cship3|grid3[(int(guess.at(1)))-49][(int(guess.at(0)))-65]==cship4|grid3[(int(guess.at(1)))-49][(int(guess.at(0)))-65]==cship5)
+   {grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] = "X";
+   cshipCount=cshipCount-1;
+   cout << "You sunk an enemy ship! There are " << cshipCount << " enemy ships left. Your turn. Guess again." << endl;}
+else
+   {grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] = "O";
+   cout << "You misssed. Guess again." << endl;}
+
+
+// computers guesses, corresponding response on grid, and check if computer guesses same coordinate twice
+do
+{cguess1=rand() % 8;
+cguess2=rand() % 8;}
+while (grid[cguess1][cguess2]=="O" | grid[cguess1][cguess2]=="X");
+
+if (grid[cguess1][cguess2]==grid[(int(ship1.at(1)))-49][(int(ship1.at(0)))-65] | grid[cguess1][cguess2]==grid[(int(ship2.at(1)))-49][(int(ship2.at(0)))-65] | grid[cguess1][cguess2]==grid[(int(ship3.at(1)))-49][(int(ship3.at(0)))-65] | grid[cguess1][cguess2]==grid[(int(ship4.at(1)))-49][(int(ship4.at(0)))-65] | grid[cguess1][cguess2]==grid[(int(ship5.at(1)))-49][(int(ship5.at(0)))-65])
+   {grid[cguess1][cguess2] = "X";
+   shipCount=shipCount-1;
+   cout << "One of your ships was destroyed! You have " << shipCount << " ships left."<< endl;
+   continue;}
+else {grid[cguess1][cguess2] = "O";
+     continue;}
+
+} // end of loop after you have won or lost
+
+cout << "Play again? y/n" << endl;
+cin >> play1;
+if (play1=="y")
+{play = true; // pick whether or not you want to play again
+continue;}
+else
+play=false;
+}
+
+if(poc==2) // start of game if you choose to play with a friend
+    {cout << "You have selected to play against a friend" << endl;
+    cout << "Player one enter your name" << endl; // names are entered and used throughout the program
+    cin >> player1;
+    cout << "Player two enter your name" << endl;
+    cin >> player2;
+    //player 1 sets ships (same ship choosing as playing the computer)
+    cout << player1 << " enter a coordinate for Ship 1 and dont let " << player2 << " see." << endl;
+    ship1 = retry();
+       cout << "Ship 1 coordinate is set! The coordinate you entered is "<< ship1 << endl;
+       cout << "Now enter a cordinate for Ship 2." << endl;
+
+    ship2=retry();
+    while (ship1 == ship2)
+    {if (ship1 == ship2)
+       {cout << "Ship 2 is on the same coordinate as ship 1. Reenter a coordinate for Ship 2" << endl;
+       ship2=retry();}}
+    cout << "Ship 2 coordinate is set! The coordinate you entered is "<< ship2 << endl;
+    cout << "Now enter a cordinate for Ship 3." << endl;
+
+    ship3=retry();
+    while (ship1 == ship3 | ship2 == ship3)
+    {if (ship1 == ship3)
+        {cout << "Ship 3 is on the same coordinate as ship 1. Renter a coordinate for Ship 3" << endl;
+        ship3=retry();}
+     if (ship2 == ship3)
+        {cout << "Ship 3 is on the same coordinate as ship 2. Renter a coordinate for Ship 3" << endl;
+        ship3=retry();}}
+    cout << "Ship 3 coordinate is set! The coordinate you entered is "<< ship3 << endl;
+    cout << "Now enter a cordinate for Ship 4." << endl;
+
+    ship4=retry();
+    while (ship1 == ship4 | ship2 == ship4 | ship3 == ship4)
+    {if (ship1 == ship4)
+        {cout << "Ship 4 is on the same coordinate as ship 1. Renter a coordinate for Ship 4" << endl;
+        ship4=retry();}
+     if (ship2 == ship4)
+        {cout << "Ship 4 is on the same coordinate as ship 2. Renter a coordinate for Ship 4" << endl;
+        ship4=retry();}
+     if (ship3 == ship4)
+        {cout << "Ship 4 is on the same coordinate as ship 3. Renter a coordinate for Ship 4" << endl;
+        ship4=retry();}}
+    cout << "Ship 4 coordinate is set! The coordinate you entered is "<< ship4 << endl;
+    cout << "Now enter a cordinate for Ship 5." << endl;
+
+    ship5=retry();
+    while (ship1 == ship5 | ship2 == ship5 | ship3 == ship5 | ship4 == ship5)
+    {if (ship1 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 1. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}
+     if (ship2 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 2. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}
+     if (ship3 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 3. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}
+     if (ship4 == ship5)
+        {cout << "Ship 5 is on the same coordinate as ship 4. Renter a coordinate for Ship 5" << endl;
+        ship5=retry();}}
+     cout << "Ship 5 coordinate is set! The coordinate you entered is "<< ship5 << endl;
+     system ("cls");
+    grid4[(int(ship1.at(1)))-49][(int(ship1.at(0)))-65] = "S";
+    grid4[(int(ship2.at(1)))-49][(int(ship2.at(0)))-65] = "S";
+    grid4[(int(ship3.at(1)))-49][(int(ship3.at(0)))-65] = "S";
+    grid4[(int(ship4.at(1)))-49][(int(ship4.at(0)))-65] = "S";
+    grid4[(int(ship5.at(1)))-49][(int(ship5.at(0)))-65] = "S";
+     // player 2 sets ships
+     cout << player1 << " you have successfully entered your ships " << player2 << "'s turn" << endl;
+     cout << player2 << " enter a coordinate for Ship 1 and dont let " << player1 << " see." << endl;
+     cship1 = retry();
+       cout << "Ship 1 coordinate is set! The coordinate you entered is "<< cship1 << endl;
+       cout << "Now enter a cordinate for Ship 2." << endl;
+
+    cship2=retry();
+    while (cship1 == cship2)
+    {if (cship1 == cship2)
+       {cout << "Ship 2 is on the same coordinate as ship 1. Reenter a coordinate for Ship 2" << endl;
+       cship2=retry();}}
+    cout << "Ship 2 coordinate is set! The coordinate you entered is "<< cship2 << endl;
+    cout << "Now enter a cordinate for Ship 3." << endl;
+
+    cship3=retry();
+    while (cship1 == cship3 | cship2 == cship3)
+    {if (cship1 == cship3)
+        {cout << "Ship 3 is on the same coordinate as ship 1. Renter a coordinate for Ship 3" << endl;
+        cship3=retry();}
+     if (cship2 == cship3)
+        {cout << "Ship 3 is on the same coordinate as ship 2. Renter a coordinate for Ship 3" << endl;
+        cship3=retry();}}
+    cout << "Ship 3 coordinate is set! The coordinate you entered is "<< cship3 << endl;
+    cout << "Now enter a cordinate for Ship 4." << endl;
+
+    cship4=retry();
+    while (cship1 == cship4 | cship2 == cship4 | cship3 == cship4)
+    {if (cship1 == cship4)
+        {cout << "Ship 4 is on the same coordinate as ship 1. Renter a coordinate for Ship 4" << endl;
+        cship4=retry();}
+     if (cship2 == cship4)
+        {cout << "Ship 4 is on the same coordinate as ship 2. Renter a coordinate for Ship 4" << endl;
+        cship4=retry();}
+     if (cship3 == cship4)
+        {cout << "Ship 4 is on the same coordinate as ship 3. Renter a coordinate for Ship 4" << endl;
+        cship4=retry();}}
+    cout << "Ship 4 coordinate is set! The coordinate you entered is "<< cship4 << endl;
+    cout << "Now enter a cordinate for Ship 5." << endl;
+
+    cship5=retry();
+    while (cship1 == cship5 | cship2 == cship5 | cship3 == cship5 | cship4 == cship5)
+    {if (cship1 == cship5)
+        {cout << "Ship 5 is on the same coordinate as ship 1. Renter a coordinate for Ship 5" << endl;
+        cship5=retry();}
+     if (cship2 == cship5)
+        {cout << "Ship 5 is on the same coordinate as ship 2. Renter a coordinate for Ship 5" << endl;
+        cship5=retry();}
+     if (cship3 == cship5)
+        {cout << "Ship 5 is on the same coordinate as ship 3. Renter a coordinate for Ship 5" << endl;
+        cship5=retry();}
+     if (cship4 == cship5)
+        {cout << "Ship 5 is on the same coordinate as ship 4. Renter a coordinate for Ship 5" << endl;
+        cship5=retry();}}
+     cout << "Ship 5 coordinate is set! The coordinate you entered is "<< cship5 << endl;
+    grid5[(int(cship1.at(1)))-49][(int(cship1.at(0)))-65] = "S";
+    grid5[(int(cship2.at(1)))-49][(int(cship2.at(0)))-65] = "S";
+    grid5[(int(cship3.at(1)))-49][(int(cship3.at(0)))-65] = "S";
+    grid5[(int(cship4.at(1)))-49][(int(cship4.at(0)))-65] = "S";
+    grid5[(int(cship5.at(1)))-49][(int(cship5.at(0)))-65] = "S";
+    // Setting up the grid
+
+    for (n=0; n<gridSize; n++)             // fill initial grid with dashes
+    {   for (r=0; r<gridSize; r++)
+        {
+            grid[n][r] = "-";
+        }
+    }
+
+
+for (n=0; n<gridSize; n++)             // fill grid2 with dashes
+    {   for (r=0; r<gridSize; r++)
+        {
+            grid2[n][r] = "-";
+        }
+    }
+
+cout << "\nThe top grid is " <<player1<< "'s. This will be where " << player2 << " guesses." << endl;
+cout << "The bottom grid is " <<player2<< "'s. This will be where " << player1 << " guesses." << endl;
+cout << "The O's mark where your guesses are" << endl;
+cout << "The X's are your hits" << endl;
+cout << "If you find all 5 computer ships you win." << endl;
+system ("pause");
+system ("cls");
+cout << "Lets begin. " << player1<< " you start. Guess a coordinate where you think " << player2 << "'s ship is." << endl;
+
+while (!winner && !loser) // same win loss check as playing computer
+{
+    cout << player1 << "'s Grid where " << player2 << " guesses" << endl; // grid 1 where player 2 guesses for player 1's ships
+    cout << "   ";
+    for (r=65; r<73; r++)
+    cout << setw(6) << char(r);
+
+    cout << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+    for (n=0; n<gridSize; n++)
+    {
+        cout << setw(2) << n+1 << "|";
+        for (r=0; r<gridSize; r++)
+            {cout << "   " <<setw(3) << grid[n][r];}
+        cout << endl;
+    }
+
+   cout << "\n" << player2 << "'s Grid where " << player1 << " guesses" << endl;
+   cout << "\n   ";                              // display grid 2 where player 1 guesses for player 2's ships
+
+    for (r=65; r<73; r++)
+    cout << setw(6) << char(r);
+
+    cout << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+    for (n=0; n<gridSize; n++)
+    {
+        cout << setw(2) << n+1 << "|";
+        for (r=0; r<gridSize; r++)
+            {cout << "   " <<setw(3) << grid2[n][r];}
+        cout << endl;
+    }
+if (cshipCount == 0) // check for win or loss
+   {cout << player1 << " Wins! Sorry " << player2 << "." << endl;
+   winner = true;
+   continue;}
+else if (shipCount ==0)
+   {cout << player2 << " Wins! Sorry " << player1 << "." << endl;
+   loser = true;
+   continue;}
+
+guess=retry(); // your guess, and what happens if you guess the same coordinate more than once
+
+while (grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] =="O" |grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] == "X")
+   {cout << "You have already guessed that coordinate. Guess again" << endl;
+   guess=retry();
+   continue;}
+
+//corresponding response of your guesses on grid
+if (grid5[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S" | grid5[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S"|grid5[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S"|grid5[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S"|grid5[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S")
+   {grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] = "X";
+   cshipCount=cshipCount-1;
+   cout << player1 << " sunk " << player2 << "'s ship! " << player2 << " has " << cshipCount << " ships left. " << player2 << "'s turn." << endl;}
+else
+   {grid2[(int(guess.at(1)))-49][(int(guess.at(0)))-65] = "O";
+   cout << "You misssed. " <<player2 << "'s turn" << endl;}
+
+if (cshipCount == 0) // check again for win or loss after player 2 goes
+   {cout << player1 << " Wins! Sorry " << player2 << "." << endl;
+   winner = true;
+   continue;}
+else if (shipCount ==0)
+   {cout << player2 << " Wins! Sorry " << player1 << "." << endl;
+   loser = true;
+   continue;}
+
+guess=retry(); // your guess, and what happens if you guess the same coordinate more than once
+
+while (grid[(int(guess.at(1)))-49][(int(guess.at(0)))-65] =="O" |grid[(int(guess.at(1)))-49][(int(guess.at(0)))-65] == "X")
+   {cout << "You have already guessed that coordinate. Guess again" << endl;
+   guess=retry();
+   continue;}
+
+//corresponding response of your guesses on grid
+if (grid4[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S" | grid4[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S"|grid4[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S"|grid4[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S"|grid4[(int(guess.at(1)))-49][(int(guess.at(0)))-65]=="S")
+   {grid[(int(guess.at(1)))-49][(int(guess.at(0)))-65] = "X";
+   shipCount=shipCount-1;
+   system("cls");
+   cout << player2 << " sunk " << player1 << "'s ship! " << player1 << " has " << shipCount << " ships left. " << player1 << "'s turn." << endl;
+   continue;}
+else
+   {grid[(int(guess.at(1)))-49][(int(guess.at(0)))-65] = "O";
+   system("cls");
+   cout << "You misssed. " <<player1 << "'s turn" << endl;
+   continue;}
+}
+
+cout << "Play again? y/n" << endl; // check play to send back to play again function
+cin >> play1;
+if (play1=="y")
+{play = true;
+continue;}
+else
+play=false;
+}
+}
+return play;
+}
+
+
+
+//Functions:
+// Try again function if coordinates are entered incorrectly
+string retry()
+{
+    bool setShip1(string); // actual function that checks coordinate and refers back to this function whether or not the coordinate was entered correctly
+    bool notcoord = true;
+    string s1;
+
+    while (notcoord)
+    {
+          try
+          {
+             cin >> s1;
+             if (!setShip1(s1)) throw s1;
+          }
+          catch (string e)
+          {
+             cout << "Invalid Coordinates - Please re-enter coordinates again: ";
+                  continue;
+          }
+          notcoord = false;
+    }
+    return s1;
+}
+//Check coordinates of ship function
+bool setShip1(string S1)
+{
+     bool output;
+     int i;
+     i = 0;
+     output = true;
+     int lettercount = 0;
+     int numbercount=0;
+     if (!isalpha(S1.at(0)))
+        {output = false;
+        cout << "The coordinate should be one capital letter followed by a number" << endl;}
+     while (output && i < 2)
+           {
+                   if (isalpha(S1.at(i)) && S1.length()==2)  // check for letter
+                      {output = true;
+                      lettercount = 1+lettercount;
+                      // cout << "First part of the coordinate is a letter" << endl;
+                      if (isupper(S1.at(i)) && lettercount < 2) // check if first letter is capital
+                         {output =true;
+                         if (int(S1.at(i)) <65 | int(S1.at(i)) > 72)
+                            {output = false;
+                            cout << "The First Coordinate must be between A and H" << endl;}
+                         else
+                            output = true;}
+                         // cout << "The letter is capitalized" << endl;}
+                      else if (lettercount > 1)
+                         {output = false;
+                         cout << "Both coordinates are letters." << endl;}
+                      else
+                         {output = false;
+                         cout << "The first coordinate isn't a capital letter" << endl;}}
+
+                   else if (isdigit(S1.at(i)) && S1.length()==2) // check for number
+                      {output = true;
+                      numbercount=1+numbercount;
+                      if (int(S1.at(i))<49 | int(S1.at(i))>56 | numbercount>1)
+                         {output = false;
+                         cout << "The second coordinate must be between 1 - 8" << endl;}
+                      else
+                          output = true;}
+                      // cout << "The second part of the coordinate is a number" << endl;}
+
+                   else
+                       {output = false;
+                       cout << "The coordinate should be one capital letter followed by a number" << endl;}
+           i++;
+           }
+     return output;
+}
+
+
+

@@ -1,0 +1,20 @@
+#Thomas Elliott
+#Future's Paper makefile
+
+all: html pdf
+
+html: future.txt
+	pandoc -s $< -o future.html 
+
+pdf: future.txt
+    
+
+clean:
+	rm -f *.o *~ core tmp
+	rm -f *.d *~ core tmp
+	rm -f *.hh *~core tmp
+	rm -f *.gch *~core tmp
+	rm -f parser.tab.cpp
+	rm -f parser.tab.hpp
+	rm -f scanner.cpp
+	rm exprtest

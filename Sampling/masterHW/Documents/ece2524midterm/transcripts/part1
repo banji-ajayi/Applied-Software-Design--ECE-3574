@@ -1,0 +1,10 @@
+Script started on Wed 10 Oct 2012 04:04:35 PM EDT
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ pwd
+/home/thomas/Documents/ece2524midterm
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ mkdir output
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midtermthomas@thomas-VirtualBox:~/Documents/ece2524midterm$ cd output
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midterm/outputthomas@thomas-VirtualBox:~/Documents/ece2524midterm/output$ cp ../README.md  Res [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[KRES PONSE.md
+]0;thomas@thomas-VirtualBox: ~/Documents/ece2524midterm/outputthomas@thomas-VirtualBox:~/Documents/ece2524midterm/output$ exit
+
+Script done on Wed 10 Oct 2012 04:07:48 PM EDT

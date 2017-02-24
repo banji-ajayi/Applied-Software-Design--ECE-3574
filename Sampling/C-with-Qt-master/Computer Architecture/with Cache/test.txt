@@ -1,0 +1,179 @@
+addv 101
+store 001
+addv -100
+BGTZ 02
+
+
+load a
+store 00
+addv 1
+store 05
+addv 1
+store 10
+addv 1
+store 15
+addv 1
+store 20
+addv 1
+store 25
+addv 1
+store 30
+addv 1
+store 35
+addv 1
+store 40
+addv 1
+store 45
+addv 1
+store 45
+addv 1
+store 50
+addv 1
+store 5a
+bgtz 1
+addv 1
+store 61
+addv 1
+store 70
+addv 1
+store 7a
+addv 1
+store 86
+out "yo whats up"
+out "chillen"
+loadA
+out "9"
+out "10"
+out "11"
+out "12"
+addv 1
+addv 1
+halt
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+store 0x00a2
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+store 0x1FF
+add 0x035
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+clear
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+store 0x00c3
+addv 1
+addv 1
+addv 1
+addv 1
+NOP
+OUT "Fuck the noise"
+out "%a"
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+store 0x123
+add 0x035
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+store 0x00a2
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv -1
+store 0x1FF
+add 0x001
+store 0x001
+add 0x0035
+addv 2
+addv 3
+addv 4
+addv 5
+addv 6
+addv 1
+addv 1
+addv 1
+addv 1
+store 0x0c3
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+addv 1
+halt
+
+
+
+
+
+
+
+
+Things that will fuck you up
+
+addv 520 //accumulator overflow
+store 0xzzz //invalid hex number
+store 0x2ff //address out of range
+out "Whats up" //output
+out "yo acc is %a" //should output accumulator value
+out "%a" //error: needed two clicks and then skipped it
+bgtz -12 //negative numbers are unacceptable
+
+
+//10 bit integers are what this project uses
+//there limits are -512 to 511
+addv -513 //overflow of 10 bit signed integer
+addv -511 //overflow of 10 bit signed integer

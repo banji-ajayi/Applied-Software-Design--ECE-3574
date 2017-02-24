@@ -1,0 +1,7 @@
+#!/bin/sh
+prog=./myBillings
+
+echo "************************************"
+echo "Testing incorrect -date month command"
+echo "************************************"
+$prog -add -4 "amos west" -d "13/23/11" -s "10:13" -e "10:14"

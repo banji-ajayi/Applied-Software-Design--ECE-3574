@@ -1,0 +1,23 @@
+#!/bin/bash
+
+clear
+clear
+
+make distclean
+qmake
+make
+
+
+gnome-terminal -x bash -c "./external 6 600; echo done; read -p \"\""
+sleep 1s
+gnome-terminal -x bash -c "./external 5 500; echo done; read -p \"\""
+sleep 1s
+gnome-terminal -x bash -c "./external 4 400; echo done; read -p \"\""
+sleep 1s
+gnome-terminal -x bash -c "./external 3 300; echo done; read -p \"\""
+sleep 1s
+gnome-terminal -x bash -c "./external 2 200; echo done; read -p \"\""
+sleep 1s
+gnome-terminal -x bash -c "./external 1 100; echo done; read -p \"\""
+sleep 1s
+gnome-terminal -x bash -c "./external 0   0; echo done; read -p \"\""

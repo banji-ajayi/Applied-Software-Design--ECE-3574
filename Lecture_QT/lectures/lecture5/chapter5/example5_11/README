@@ -1,0 +1,9 @@
+g++ -o si sum_it.cpp
+g++ -o si_ptr sum_it_ptr.cpp
+g++ -o si_ref sum_it_ref.cpp
+
+check the differences between each source file
+sum_it.cpp - passing by value
+sum_it_ptr.cpp - passing by pointer
+sum_it_ref.cpp - passing by reference
+

@@ -1,0 +1,79 @@
+#!/bin/sh
+prog=./myBillings
+echo "************************************"
+echo "* Removing old mybillings.dat file"
+echo "************************************"
+rm mybillings.dat
+echo "************************************"
+echo "* Testing adding billings"
+echo "************************************"
+out1=`$prog -add -n "Michael Milkin" -d "01/01/13" -s "10:00" -e "11:15"`
+echo $out1
+confNum1=`echo $out1 | cut -d' ' -f1`
+echo "Conf number is " $confNum1
+out2=`$prog -add -n "michael milkin" -d "01/01/13" -s "13:30" -e "16:00"`
+echo $out2
+confNum2=`echo $out2 | cut -d' ' -f1`
+echo "Conf number is " $confNum2
+out3=`$prog -add -n "Joe Shmo" -d "01/01/13" -s "08:10" -e "08:30"`
+echo $out3
+out4=`$prog -add -n "joe shmo" -d "11/05/12" -s "09:30" -e "18:30"`
+echo $out4
+echo "************************************"
+echo "* Testing for double billing errors"
+echo "* These should all be errors "
+echo "************************************"
+$prog -add -n "Joe Shmo" -d "01/01/13" -s "09:00" -e "10:15"
+$prog -add -n "Joe Shmo" -d "01/01/13" -s "09:00" -e "12:15"
+$prog -add -n "Joe Shmo" -d "01/01/13" -s "10:30" -e "12:15"
+echo "************************************"
+echo "* Testing printing out billings on particular days"
+echo "* All billings on 01/01/13"
+echo "************************************"
+$prog -list -d "01/01/13"
+echo "************************************"
+echo "* All billings on 11/05/12"
+echo "************************************"
+$prog -list -d "11/05/12"
+echo "************************************"
+echo "* Should have no billings on 12/25/12"
+echo "************************************"
+$prog -list -d "12/25/12"
+echo "************************************"
+echo "* Testing printing out billings for particular names"
+echo "************************************"
+$prog -list -n "Michael milkin"
+echo "************************************"
+$prog -list -n "Joe shmo"
+echo "************************************"
+echo "* Should have no billings for Fred Harris"
+echo "************************************"
+$prog -list -n "Fred Harris"
+echo "************************************"
+echo "* Testing deleting a billing, the second should one not be found"
+echo "************************************"
+$prog -del "$confNum1"
+$prog -del 9999999
+echo "************************************"
+echo "* Printing out listing after delete "
+echo "************************************"
+$prog -list -d 01/01/13
+echo "************************************"
+echo "* These should all be input format errors"
+echo "************************************"
+$prog -add -n "Joe Shmo" -d "02/25/13" -s "09:00" -e "10:15"
+$prog -add -n "Joe Shmo" -d "01/32/13" -s "09:00" -e "10:15"
+$prog -add -n "Joe Shmo" -d "01/25/13" -s "11:00" -e "10:15"
+$prog -add -n "Joe Shmo" -d "01/25/13" -s "13:00" -e "24:15"
+echo "************************************"
+echo "* This correctly print out the total time"
+echo "************************************"
+$prog -total
+echo "************************************"
+echo "* The program should do something reasonable if I just type the name"
+echo "* Either list all reservations or help"
+echo "************************************"
+$prog 
+echo "************************************"
+echo "* End of script"
+echo "************************************"

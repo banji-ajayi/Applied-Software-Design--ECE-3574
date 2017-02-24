@@ -1,0 +1,91 @@
+Chapter 1 Review Questions:
+A pointer is an address of memory in which you have stored  some data.It is usually a pointer to a data type
+and what you pass is a-
+
+What is the address of operator? - is  the & and gives you the address of a variable
+
+What is the de-reference operator? - it is the asterisk *. It gives you value to  which you are pointing to.
+
+What is a null pointer? a Null pointer  is a pointer  to any data type, but the value is 0. You would want to define one
+to help find bugs and is a good way to program to test.
+
+What might cause asegmentation fault? - Usuaully if you have a pointer pointing to something in memory that isn't mapped then it could cause  it. 
+
+What arethe possible uses of const when dealing with pointers? -skipped
+
+What  is a function signature? - skipped
+
+Why isit an error to have  two functions with the samesignature  but different return types in one scope? - Because it is not allowed in C++ (C++11).
+
+Chapter 2 Review Questions:
+2.16 Review Questions.
+
+1) Struct and class is equivalent but  in struct, all members are public. But in class, you have public, private, and protected members which is not possible in a struct.
+
+3) Friend functions are functions that are able to access private and publicmember of the class. 
+
+4) A static data menmber differfrom non static because - 
+
+6) to declare a member function to be const means that function does  not change any data  member of our clalss.
+
+
+Chapter 4 Review Questions:
+4.5 Review Questions
+
+4) the iterator pattern is the first pattern we discussed. With it, we are able to , in a standard way, walk through a data structor. 
+	Is very powerful as with an iterator, you don't need to know which data  structure your class implements. 
+
+6) the difference between composition and aggregation. Composite relation will manage  the data over lifecycle of containee. In Agreegate, container does not manage  the lifecycle of the data.
+
+
+Chapter 5 Review Questions:
+5.13 review questions
+
+1) what is  difff between function declaration and function definition? We are declaring a type when we are writting it. We aredefining it instead
+	when we are putting the prototype and body. 
+
+2)for every member function, it can have defaultl functions. Meaning  you can provide standardvalues  to one of the or multiple arguments. So if
+	user doesnt'set one of these arguments, then it willhave default value. Defalt values part ofthe definition.
+
+6) By default in C, they arepass by value.  Every copy isinitialized on stack before calling the function. But in C++, wecanalso pass by reference. 
+
+Chapter 6 Review Questions:
+6.11
+
+1) what is diff between a function and a method? due to if a function in class was a virtual, it wouldthus be amethod.
+
+2) what does it mean for base class to be hidden
+
+3) constructor,copy construcototr, copy assignment i
+vk
+Chapter 7 Review Questions:
+Abstract cl
+
+Whatis a design patter? Wjhatdo most design patterns that in common.
+
+Chapter 8 Review Questions:
+8.9 Review  Question
+m
+1) what does it mean when QObject A is arent of QObject B. Means that  specififiues at run time who is pointing to 
+
+\\\\\\\\'
+event loop alllows tak repesenai'
+
+l
+
+Chapter 10 Review Questions
+
+QMainWindow and Dialog both inherit from QWidget. QMainWindow is divided in multiple llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+
+Chapter 11 Reivew Questions
+
+2) when we define template. We define template parameters. Can be multiple and cann be type but also constant. instead the param of function can only be tyes. 
+3) this is because to use same template, then you get an error.
+
+
+Chapter 12 review
+Very immportant is MainobjectFramework. Divded  into two parts. One part allows you to know weverything about QObjectType and the other about QValue Type.Like this because in QT, our types are divded into two categories. One has value types so you can clone  and the other being dynamic from QObject. Everything inherited from QObject is not  clonable. Only one instance. 
+
+ObjectType  and ValueType. Different types. ValueTypes can be copied.  
+
+QMetaObject
